@@ -1,0 +1,7 @@
+{
+  "name": "Costa Atlantica",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
