@@ -1,0 +1,42 @@
+name: Build and Deploy MateAPP PRODUCTION!
+
+on:
+  push:
+    branches:
+      - master # Adjust the branch as needed
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Ionic CLI
+        run: npm install -g @ionic/cli
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+
+      - name: Install other npm packagess
+        run: npm install --legacy-peer-deps
+
+      - name: Execute script to change base href and build app.
+        run: |
+          sudo bash ./scripts/build-prod.sh
+
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          source: ./www/
+          target: /var/www/app-prod
+
+    #   - name: Notify Discord
+    #     uses: tsickert/discord-webhook@v5.3.0
+    #     with:
+    #       webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+    #       content: "Deployment IONIC PROD completed successfully! 🤠"

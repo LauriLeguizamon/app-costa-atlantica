@@ -1,0 +1,9 @@
+services:
+  app:
+    build: .
+    container_name: app-costa-atlantica
+    command: sh -c 'npm i && ionic serve --external'
+    ports:
+      - 8100:8100
+    volumes:
+      - .:/app

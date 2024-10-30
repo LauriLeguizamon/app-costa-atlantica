@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">Cancelar</ion-button>
+    </ion-buttons>
+    <ion-title>Creación de pasajero</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" color="light">
+  <form action="" [formGroup]="passengerForm">
+    <ion-list>
+      <ion-item>
+        <ion-input
+          formControlName="name"
+          label="Nombre pasajero"
+          placeholder="Ej: Eduardo"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-select
+          formControlName="adults"
+          label="Mayores"
+          placeholder="Cantidad de pasajeros mayores"
+        >
+          <ion-select-option [value]="1">1</ion-select-option>
+          <ion-select-option [value]="2">2</ion-select-option>
+          <ion-select-option [value]="3">3</ion-select-option>
+          <ion-select-option [value]="4">4</ion-select-option>
+          <ion-select-option [value]="5">5</ion-select-option>
+          <ion-select-option [value]="6">6</ion-select-option>
+          <ion-select-option [value]="7">7</ion-select-option>
+          <ion-select-option [value]="8">8</ion-select-option>
+          <ion-select-option [value]="9">9</ion-select-option>
+          <ion-select-option [value]="10">10</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-select
+          formControlName="underage"
+          label="Menores"
+          placeholder="Cantidad de pasajeros menores"
+        >
+          <ion-select-option [value]="1">1</ion-select-option>
+          <ion-select-option [value]="2">2</ion-select-option>
+          <ion-select-option [value]="3">3</ion-select-option>
+          <ion-select-option [value]="4">4</ion-select-option>
+          <ion-select-option [value]="5">5</ion-select-option>
+          <ion-select-option [value]="6">6</ion-select-option>
+          <ion-select-option [value]="7">7</ion-select-option>
+          <ion-select-option [value]="8">8</ion-select-option>
+          <ion-select-option [value]="9">9</ion-select-option>
+          <ion-select-option [value]="10">10</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-select
+          formControlName="babies"
+          label="Upas"
+          placeholder="Cantidad de pasajeros upa"
+        >
+          <ion-select-option [value]="1">1</ion-select-option>
+          <ion-select-option [value]="2">2</ion-select-option>
+          <ion-select-option [value]="3">3</ion-select-option>
+          <ion-select-option [value]="4">4</ion-select-option>
+          <ion-select-option [value]="5">5</ion-select-option>
+          <ion-select-option [value]="6">6</ion-select-option>
+          <ion-select-option [value]="7">7</ion-select-option>
+          <ion-select-option [value]="8">8</ion-select-option>
+          <ion-select-option [value]="9">9</ion-select-option>
+          <ion-select-option [value]="10">10</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-select
+          formControlName="free"
+          label="Liberados"
+          placeholder="Cantidad de pasajeros liberados"
+        >
+          <ion-select-option [value]="1">1</ion-select-option>
+          <ion-select-option [value]="2">2</ion-select-option>
+          <ion-select-option [value]="3">3</ion-select-option>
+          <ion-select-option [value]="4">4</ion-select-option>
+          <ion-select-option [value]="5">5</ion-select-option>
+          <ion-select-option [value]="6">6</ion-select-option>
+          <ion-select-option [value]="7">7</ion-select-option>
+          <ion-select-option [value]="8">8</ion-select-option>
+          <ion-select-option [value]="9">9</ion-select-option>
+          <ion-select-option [value]="10">10</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="Seña"
+          type="number"
+          placeholder="Ej: 4500"
+          formControlName="upfront"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-textarea
+          formControlName="description"
+          labelPlacement="stacked"
+          label="Descripción / Información extra"
+          placeholder="Ej: Silla de ruedas"
+        ></ion-textarea>
+      </ion-item>
+    </ion-list>
+  </form>
+
+  <ion-button class="w-100 mt-3" (click)="manageActionButton()">
+    <span *ngIf="!passengerToEdit"> Agregar pasajero </span>
+    <span *ngIf="passengerToEdit"> Editar pasajero </span>
+  </ion-button>
+</ion-content>

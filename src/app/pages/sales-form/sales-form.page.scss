@@ -1,0 +1,14 @@
+.add-button {
+  background-color: rgb(206, 206, 206);
+  width: 100%;
+  padding: 8px 16px;
+  margin: 4px;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.add-button:active {
+  transform: scale(0.99);
+  background-color: rgb(180, 179, 179);
+}

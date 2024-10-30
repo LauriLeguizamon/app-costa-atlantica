@@ -1,0 +1,46 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Formulario de grupo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-list [inset]="true">
+    <ion-list-header>Grupo (empresa)</ion-list-header>
+    <ion-item>
+      <ion-input label="Nombre del grupo"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>Excursion</ion-list-header>
+    <ion-item>
+      <ion-input label="Nombre excursion"></ion-input>
+    </ion-item>
+
+    <ion-list [inset]="true" class="hotel-list">
+      <ion-list-header>Hotel</ion-list-header>
+      <ion-item>
+        <ion-input label="nombre del hotel"></ion-input>
+      </ion-item>
+      <ion-list [inset]="true">
+        <ion-list-header>Pasajeros</ion-list-header>
+        <ion-item></ion-item>
+        <ion-item>
+          <span class="add-button">Agregar pasajero</span>
+        </ion-item>
+      </ion-list>
+      <ion-item>
+        <span class="add-button">Agregar hotel</span>
+      </ion-item>
+    </ion-list>
+  </ion-list>
+
+  <span class="add-button">Agregar Excursion</span>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" color="primary">Enviar a la oficina</ion-button>
+  </ion-toolbar>
+</ion-footer>
