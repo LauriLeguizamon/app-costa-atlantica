@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Passenger } from 'src/app/interfaces/passenger';
 import { StateService } from 'src/app/services/state.service';
+import { PassengerModalComponent } from '../passenger-modal/passenger-modal.component';
 
 @Component({
   selector: 'app-summary-modal',
@@ -49,6 +50,7 @@ export class SummaryModalComponent implements OnInit {
   }
 
   formatData(data: any, level: number = 0): string {
+    console.log(data);
     const indent = '  '.repeat(level);
     let result = '';
 
@@ -61,13 +63,21 @@ export class SummaryModalComponent implements OnInit {
         const value = data[key];
         if (key === 'passengers' && Array.isArray(value)) {
           value.forEach((passenger: Passenger) => {
-            result += `${indent}  - ${passenger.name}, ${
-              passenger.adults
-            } Mayores, ${passenger.underage} Menores, ${
-              passenger.babies
-            } Upas, ${passenger.free} Liberados, Seña: ${
-              passenger.upfront ?? 'Sin seña'
-            } Extra info: ${passenger.description ?? ''}\n`;
+            result += `${indent}  - ${passenger.name}: ${
+              passenger.adults > 0 ? 'x ' + passenger.adults : ''
+            } ${
+              passenger.underage > 0 ? '+ ' + passenger.underage + ' me ' : ''
+            }${passenger.babies > 0 ? '+ ' + passenger.babies + ' U ' : ''}${
+              passenger.free > 0 ? '+ ' + passenger.free + ' L ' : ''
+            }s ${
+              passenger.upfront && passenger.upfront > 0
+                ? '$' + passenger.upfront
+                : 'Sin seña '
+            }${
+              passenger.description.length > 0
+                ? '(' + passenger.description + ')'
+                : ''
+            }\n`;
           });
         } else if (key !== 'id' && typeof value === 'object') {
           result += `${indent}${this.formatData(value, level + 1)}`;
@@ -77,7 +87,6 @@ export class SummaryModalComponent implements OnInit {
       }
     }
 
-    console.log(result);
     return result;
   }
 }

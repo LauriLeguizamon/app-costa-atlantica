@@ -3,58 +3,62 @@
     <ion-buttons slot="start">
       <ion-back-button text="atrás"></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="selectedTour"
-      >Excursion - {{ selectedTour.name }}</ion-title
+    <ion-title *ngIf="selectedHotel"
+      >Excursion - {{ selectedHotel.name }}</ion-title
     >
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
-  <ion-title class="mt-2">Pasajeros por hotel</ion-title>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title class="mt-2">Pasajeros por excursion</ion-title>
+    </ion-toolbar>
+  </ion-header>
   <ion-card>
-    <ion-card-header *ngIf="selectedTour && selectedTour.hotels.length === 0">
-      <ion-card-title>No hay hoteles</ion-card-title>
+    <ion-card-header *ngIf="selectedHotel && selectedHotel.tours.length === 0">
+      <ion-card-title>No hay excursiones</ion-card-title>
       <ion-card-subtitle
-        >Para agregar pasajeros debes agregar un hotel</ion-card-subtitle
+        >Para agregar pasajeros debes agregar una excursion</ion-card-subtitle
       >
     </ion-card-header>
   </ion-card>
 
   <ion-list
-    *ngFor="let hotel of selectedTour!.hotels"
+    *ngFor="let tour of selectedHotel!.tours"
     class="mb-2"
     [inset]="true"
   >
     <ion-list-header>
-      <ion-label>Hotel - {{ hotel.name }}</ion-label>
-      <ion-button (click)="editHotelAlert(hotel)">Administrar</ion-button>
+      <ion-label>Excursion - {{ tour.name }}</ion-label>
+      <ion-button (click)="editTourAlert(tour)">Administrar</ion-button>
     </ion-list-header>
-    <ion-item-sliding *ngFor="let passenger of hotel.passengers">
+    <ion-item-sliding *ngFor="let passenger of tour.passengers">
       <ion-item>
         <ion-icon name="person" slot="start"></ion-icon>
         <ion-label>{{ passenger.name }}</ion-label>
       </ion-item>
 
       <ion-item-options>
-        <ion-item-option (click)="openPassengerModal(hotel, passenger)"
+        <ion-item-option (click)="openPassengerModal(tour, passenger)"
           >Editar</ion-item-option
         >
         <ion-item-option
           color="danger"
-          (click)="deletePassengerAlert(hotel, passenger)"
+          (click)="deletePassengerAlert(tour, passenger)"
           >Eliminar</ion-item-option
         >
       </ion-item-options>
     </ion-item-sliding>
     <ion-item lines="none">
-      <ion-button (click)="openPassengerModal(hotel)"
+      <ion-button (click)="openPassengerModal(tour)"
         >Agregar pasajero</ion-button
       >
     </ion-item>
   </ion-list>
   <div class="w-100 d-flex align-items-center justify-content-center">
-    <ion-button expand="block" (click)="createHotelAlert()"
-      >Agregar hotel</ion-button
+    <ion-button expand="block" (click)="createTourAlert()"
+      >Agregar excursion</ion-button
     >
   </div>
 </ion-content>

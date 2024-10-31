@@ -18,39 +18,41 @@
 
   <ion-list [inset]="true">
     <ion-list-header>
-      <ion-label>Excursiones</ion-label>
+      <ion-label>Hoteles</ion-label>
     </ion-list-header>
-    <ion-item *ngIf="stateService.group!.tours.length === 0">
+    <ion-item *ngIf="stateService.group!.hotels.length === 0">
       <ion-label>
-        <h3>No hay excursiones</h3>
-        <p>Para agregar excursiones presiona en "agregar excursiones"</p>
+        <h3>No hay hoteles</h3>
+        <p>Para agregar hoteles presiona en "agregar hotel"</p>
         <span class="text-danger" *ngIf="groupNameControl.invalid"
           >Agrega el nombre del grupo</span
         >
       </ion-label>
     </ion-item>
 
-    <ion-item-sliding *ngFor="let tour of stateService.group!.tours">
+    <ion-item-sliding *ngFor="let hotel of stateService.group!.hotels">
       <ion-item-options>
-        <ion-item-option (click)="editTourAlert(tour)">Editar</ion-item-option>
-        <ion-item-option color="danger" (click)="deleteTourAlert(tour)"
+        <ion-item-option (click)="editHotelAlert(hotel)"
+          >Editar</ion-item-option
+        >
+        <ion-item-option color="danger" (click)="deleteHotelAlert(hotel)"
           >Eliminar</ion-item-option
         >
       </ion-item-options>
       <ion-item
         [button]="true"
         [detail]="true"
-        (click)="navigateToTour(tour.id)"
+        (click)="navigateToHotel(hotel.id)"
       >
-        <ion-label>{{tour.name}}</ion-label>
+        <ion-label>{{hotel.name}}</ion-label>
       </ion-item>
     </ion-item-sliding>
 
     <ion-item lines="none">
       <ion-button
-        (click)="createTourAlert()"
+        (click)="createHotelAlert()"
         [disabled]="groupNameControl.invalid"
-        >Agregar excursion</ion-button
+        >Agregar hotel</ion-button
       >
     </ion-item>
   </ion-list>

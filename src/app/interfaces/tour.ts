@@ -1,7 +1,7 @@
-import { Hotel } from './hotel';
+import { Passenger } from './passenger';
 
 export interface Tour {
   id: number;
   name: string;
-  hotels: Hotel[];
+  passengers: Passenger[];
 }

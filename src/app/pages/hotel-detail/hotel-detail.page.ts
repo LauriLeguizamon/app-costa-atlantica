@@ -17,12 +17,12 @@ import { Hotel } from 'src/app/interfaces/hotel';
 import { SummaryModalComponent } from 'src/app/components/summary-modal/summary-modal.component';
 
 @Component({
-  selector: 'app-tour-detail',
-  templateUrl: './tour-detail.page.html',
-  styleUrls: ['./tour-detail.page.scss'],
+  selector: 'app-hotel-detail',
+  templateUrl: './hotel-detail.page.html',
+  styleUrls: ['./hotel-detail.page.scss'],
 })
-export class TourDetailPage implements OnInit {
-  selectedTour?: Tour;
+export class HotelDetailPage implements OnInit {
+  selectedHotel?: Hotel;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,20 +33,20 @@ export class TourDetailPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    const tourId = parseInt(
-      this.route.snapshot.paramMap.get('tourId') as string
+    const hotelId = parseInt(
+      this.route.snapshot.paramMap.get('hotelId') as string
     );
 
-    this.selectedTour = this.stateService.group!.tours.find(
-      (t) => t.id === tourId
+    this.selectedHotel = this.stateService.group!.hotels.find(
+      (t) => t.id === hotelId
     );
 
-    if (!tourId || !this.selectedTour) {
+    if (!hotelId || !this.selectedHotel) {
       this.navCtrl.navigateRoot('');
     }
   }
 
-  deletePassengerAlert(hotel: Hotel, passenger: Passenger) {
+  deletePassengerAlert(tour: Tour, passenger: Passenger) {
     this.alertCtrl
       .create({
         header: '¿Seguro que quieres eliminar al pasajero?',
@@ -59,7 +59,7 @@ export class TourDetailPage implements OnInit {
           {
             text: 'Eliminar',
             handler: () => {
-              hotel.passengers = hotel.passengers.filter((p: Passenger) => {
+              tour.passengers = tour.passengers.filter((p: Passenger) => {
                 return p.id !== passenger.id;
               });
             },
@@ -71,14 +71,14 @@ export class TourDetailPage implements OnInit {
       });
   }
 
-  createHotelAlert() {
+  createTourAlert() {
     this.alertCtrl
       .create({
-        header: 'Creación de un Hotel',
+        header: 'Creación de una excursion',
         inputs: [
           {
             type: 'text',
-            placeholder: 'Nombre del Hotel',
+            placeholder: 'Nombre de la excursion',
           },
         ],
         buttons: [
@@ -89,13 +89,13 @@ export class TourDetailPage implements OnInit {
           {
             text: 'Crear',
             handler: (data) => {
-              const tourId = Math.round(
-                this.selectedTour!.hotels.length + 1 * Math.random() * 10000
+              const hotelId = Math.round(
+                this.selectedHotel!.tours.length + 1 * Math.random() * 10000
               );
 
-              this.selectedTour!.hotels.push({
+              this.selectedHotel!.tours.push({
                 name: data[0],
-                id: tourId,
+                id: hotelId,
                 passengers: [],
               });
             },
@@ -107,60 +107,60 @@ export class TourDetailPage implements OnInit {
       });
   }
 
-  editHotelAlert(hotel: Hotel) {
+  editTourAlert(tour: Tour) {
     this.alertCtrl
       .create({
-        header: 'Editar hotel',
+        header: 'Editar excursion',
         inputs: [
           {
             type: 'text',
             placeholder: 'Nombre de la excursion',
-            value: hotel.name,
+            value: tour.name,
           },
         ],
         buttons: [
-          {
-            text: 'Cancelar',
-            role: 'cancel',
-          },
           {
             text: 'Eliminar',
             role: 'destructive',
             cssClass: 'text-danger',
             handler: () => {
-              this.selectedTour!.hotels = this.selectedTour!.hotels.filter(
-                (h) => h.id !== hotel.id
+              this.selectedHotel!.tours = this.selectedHotel!.tours.filter(
+                (h) => h.id !== tour.id
               );
             },
           },
           {
             text: 'Editar',
             handler: (data) => {
-              hotel.name = data[0];
+              tour.name = data[0];
 
               // this.hotels.map((h) => (h.id === hotel.id ? hotel : h));
             },
           },
-        ],
-      })
-      .then((alertEl) => {
-        alertEl.present();
-      });
-  }
-
-  deleteHotelAlert(hotel: Hotel) {
-    this.alertCtrl
-      .create({
-        header: '¿Seguro que quieres eliminar el hotel?',
-        subHeader:
-          'Borraras todos sus pasajeros. Ademas esta acción no se puede deshacer',
-        buttons: [
           {
             text: 'Cancelar',
             role: 'cancel',
           },
+        ],
+      })
+      .then((alertEl) => {
+        alertEl.present();
+      });
+  }
+
+  deleteTourAlert(tour: Tour) {
+    this.alertCtrl
+      .create({
+        header: '¿Seguro que quieres eliminar la excursion?',
+        subHeader:
+          'Borraras todos sus pasajeros. Ademas esta acción no se puede deshacer',
+        buttons: [
           {
             text: 'Eliminar',
+          },
+          {
+            text: 'Cancelar',
+            role: 'cancel',
           },
         ],
       })
@@ -169,7 +169,7 @@ export class TourDetailPage implements OnInit {
       });
   }
 
-  async openPassengerModal(hotel: Hotel, passenger?: Passenger) {
+  async openPassengerModal(tour: Tour, passenger?: Passenger) {
     const modal = await this.modalCtrl.create({
       component: PassengerModalComponent,
       componentProps: {
@@ -184,13 +184,11 @@ export class TourDetailPage implements OnInit {
     if (role === 'confirm') {
       let passenger = data as Passenger;
 
-      hotel.passengers.push(passenger);
-
-      console.log(hotel);
+      tour.passengers.push(passenger);
     } else if (role === 'edit') {
       let passenger = data as Passenger;
 
-      hotel.passengers = hotel.passengers.map((p) =>
+      tour.passengers = tour.passengers.map((p) =>
         p.id === passenger.id ? passenger : p
       );
     }

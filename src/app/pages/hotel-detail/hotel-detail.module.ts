@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TourDetailPageRoutingModule } from './tour-detail-routing.module';
+import { TourDetailPageRoutingModule } from './hotel-detail-routing.module';
 
-import { TourDetailPage } from './tour-detail.page';
+import { HotelDetailPage } from './hotel-detail.page';
 
 @NgModule({
   imports: [
@@ -15,6 +15,6 @@ import { TourDetailPage } from './tour-detail.page';
     IonicModule,
     TourDetailPageRoutingModule,
   ],
-  declarations: [TourDetailPage],
+  declarations: [HotelDetailPage],
 })
 export class TourDetailPageModule {}

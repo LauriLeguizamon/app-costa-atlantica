@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TourPageRoutingModule } from './tour-routing.module';
+import { TourPageRoutingModule } from './hotel-routing.module';
 
-import { TourPage } from './tour.page';
+import { HotelPage } from './hotel.page';
 import { PassengerModalComponent } from 'src/app/components/passenger-modal/passenger-modal.component';
 import { SummaryModalComponent } from 'src/app/components/summary-modal/summary-modal.component';
 
@@ -18,6 +18,6 @@ import { SummaryModalComponent } from 'src/app/components/summary-modal/summary-
     IonicModule,
     TourPageRoutingModule,
   ],
-  declarations: [TourPage, PassengerModalComponent, SummaryModalComponent],
+  declarations: [HotelPage, PassengerModalComponent, SummaryModalComponent],
 })
 export class TourPageModule {}

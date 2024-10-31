@@ -5,12 +5,12 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./pages/tour/tour.module').then((m) => m.TourPageModule),
+      import('./pages/hotel/hotel.module').then((m) => m.TourPageModule),
   },
   {
-    path: 'tour/:tourId',
+    path: 'hotel/:hotelId',
     loadChildren: () =>
-      import('./pages/tour-detail/tour-detail.module').then(
+      import('./pages/hotel-detail/hotel-detail.module').then(
         (m) => m.TourDetailPageModule
       ),
   },

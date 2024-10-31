@@ -1,22 +1,24 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { StateChangeListener } from '@capacitor/app';
 import {
   AlertController,
   ModalController,
   NavController,
 } from '@ionic/angular';
-import { SummaryModalComponent } from 'src/app/components/summary-modal/summary-modal.component';
-import { Tour } from 'src/app/interfaces/tour';
+
 import { StateService } from 'src/app/services/state.service';
+
+import { Hotel } from 'src/app/interfaces/hotel';
+
+import { SummaryModalComponent } from 'src/app/components/summary-modal/summary-modal.component';
 
 @Component({
   selector: 'app-tour',
-  templateUrl: './tour.page.html',
-  styleUrls: ['./tour.page.scss'],
+  templateUrl: './hotel.page.html',
+  styleUrls: ['./hotel.page.scss'],
 })
-export class TourPage implements OnInit {
+export class HotelPage implements OnInit {
   groupNameControl: FormControl = new FormControl('', [Validators.required]);
 
   constructor(
@@ -27,21 +29,21 @@ export class TourPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.stateService.group = { name: 'Grupo 1', tours: [] };
+    this.stateService.group = { name: 'Grupo 1', hotels: [] };
   }
 
   changeGroupName(ev: any) {
     this.stateService.group!.name = ev.detail.value;
   }
 
-  createTourAlert() {
+  createHotelAlert() {
     this.alertCtrl
       .create({
-        header: 'Creación de excursion',
+        header: 'Creación de hotel',
         inputs: [
           {
             type: 'text',
-            placeholder: 'Nombre de la excursion',
+            placeholder: 'Nombre del hotel',
           },
         ],
         buttons: [
@@ -53,14 +55,14 @@ export class TourPage implements OnInit {
             text: 'Crear',
             handler: (data) => {
               const tourId = Math.round(
-                this.stateService.group!.tours.length +
+                this.stateService.group!.hotels.length +
                   1 * Math.random() * 10000
               );
 
-              this.stateService.group!.tours.push({
+              this.stateService.group!.hotels.push({
                 name: data[0],
                 id: tourId,
-                hotels: [],
+                tours: [],
               });
             },
           },
@@ -71,14 +73,14 @@ export class TourPage implements OnInit {
       });
   }
 
-  editTourAlert(tour: Tour) {
+  editHotelAlert(tour: Hotel) {
     this.alertCtrl
       .create({
-        header: 'Edición de excursion',
+        header: 'Edición del hotel',
         inputs: [
           {
             type: 'text',
-            placeholder: 'Nombre de la excursion',
+            placeholder: 'Nombre del hotel',
             value: tour.name,
           },
         ],
@@ -100,10 +102,10 @@ export class TourPage implements OnInit {
       });
   }
 
-  deleteTourAlert(tour: Tour) {
+  deleteHotelAlert(tour: Hotel) {
     this.alertCtrl
       .create({
-        header: '¿Seguro que quieres eliminar la excursion?',
+        header: '¿Seguro que quieres eliminar el hotel?',
         subHeader: 'Esta acción no se puede deshacer',
         buttons: [
           {
@@ -115,8 +117,8 @@ export class TourPage implements OnInit {
             role: 'destructive',
             cssClass: 'text-danger',
             handler: (data) => {
-              this.stateService.group!.tours =
-                this.stateService.group!.tours.filter((t) => t.id !== tour.id);
+              this.stateService.group!.hotels =
+                this.stateService.group!.hotels.filter((t) => t.id !== tour.id);
             },
           },
         ],
@@ -126,8 +128,8 @@ export class TourPage implements OnInit {
       });
   }
 
-  navigateToTour(tourId: number) {
-    this.navCtrl.navigateForward('tour/' + tourId);
+  navigateToHotel(hotelId: number) {
+    this.navCtrl.navigateForward('hotel/' + hotelId);
   }
 
   async openSummaryModal() {
